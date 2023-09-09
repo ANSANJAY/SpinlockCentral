@@ -61,6 +61,14 @@ Spin Locks are synchronization primitives used to protect shared resources, just
 - Spin locks cannot be used with condition variables.
 - There's a kernel version of spin locks separate from the user space version provided by POSIX APIs. It's recommended not to mix them up!
 
+### Usage 
+
+```bash
+[anamika@fedora missimissi]$ gcc -o spinlock spinlock.c
+[anamika@fedora missimissi]$ ./spinlock 
+Final counter value: 1000000
+
+```
 ---
 
 **Real Use Case for Spinlock** 🌐
