@@ -46,6 +46,38 @@ Spin Locks are synchronization primitives used to protect shared resources, just
 
 ---
 
+```lua
+                      +-----------------------------------+
+                      |                                   |
+                      |     Shared Resource/Variable      |
+                      |       (e.g., counter)             |
+                      |                                   |
+                      +-----------------------------------+
+                                    ^
+                                    |
+                                    |
++-------+     tries to acquire     +-------+     tries to acquire
+|       |       and spins if        |       |       and spins if
+|  T1   |       locked              |  T2   |       locked
+|       |   +------------------>    |       |   +------------------>
++-------+                           +-------+                   
+                                    |
+                                    |
+                                    v
+                      +-----------------------------------+
+                      |                                   |
+                      |          Spinlock State           |
+                      |     (Locked/Unlocked)             |
+                      |                                   |
+                      +-----------------------------------+
+```
+
+In the diagram:
+- `T1` and `T2` represent two threads trying to access a shared resource.
+- When `T1` tries to acquire the spinlock and it's already locked (by another thread, e.g., `T2`), `T1` will spin (busy wait) until the spinlock becomes available.
+- The "Spinlock State" is a representation of whether the spinlock is currently locked or unlocked. If locked, any thread trying to acquire it will spin until it's unlocked.
+
+
 ### 🤔 **When to Use Spin Locks over Mutexes?**
 
 - Spin locks are preferred when:
